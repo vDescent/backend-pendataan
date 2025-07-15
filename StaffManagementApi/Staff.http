@@ -1,0 +1,71 @@
+# Staff Management API HTTP Requests
+
+### 1. Get All Staff
+GET http://localhost:5077/api/staff/
+### 
+GET http://localhost:5077/api/staff/search?keyword=faggot
+
+### 2. Get Staff by ID
+GET http://localhost:5077/api/staff/4
+
+
+### 3. Add New Staff
+POST http://localhost:5077/api/staff/add
+Content-Type: application/json
+
+{
+    "FullName": "Faggot",
+    "NIM": "69666420",
+    "BinusianId": "B8008598",
+    "Gender": "Attack Helicopter",
+    "Email": "faggot@binus.ac.id",
+    "PhoneNumber": "08128859989",
+    "ActiveSemester": 4,
+    "BinusianStatus": "Active",
+    "NIK": "3174091234560001",
+    "DateOfBirth": "2009-05-14",
+    "Address": "Jl. Sudirman No.10, Jakarta",
+    "NPWP": "12.345.678.9-012.345",
+    "BankAccountNumber": "1234567890",
+    "BankBranch": "KCP Bina Nusantara",
+    "AccountHolderName": "Faggot",
+    "ParentGuardianName": "Nigger",
+    "ParentGuardianPhone": "08129876543",
+    "EmergencyContact": "081312345678",
+    "EmergencyRelation": "Sibling"
+}
+
+### 4. Update Staff Data
+PUT http://localhost:5077/api/staff/edit/1
+Content-Type: application/json
+
+{
+    "FullName": "John Doe Updated",
+    "Email": "johndoe@binus.edu",
+    "PhoneNumber": "08123456789",
+    "Address": "Jl. Sudirman No.20, Jakarta",
+    "NPWP": "12.345.678.9-012.345",
+    "BankAccountNumber": "1234567890",
+    "BankBranch": "KCP Bina Nusantara",
+    "AccountHolderName": "John Doe",
+    "EmergencyContact": "081312345678",
+    "EmergencyRelation": "Sibling"
+}
+
+### 5. Delete Staff (Set Inactive)
+DELETE http://localhost:5077/api/staff/delete/3
+
+### 6. Terminate Staff
+POST http://localhost:5077/api/staff/terminate/2
+
+### 7. Upload Excel File
+POST http://localhost:5077/api/staff/upload/excel
+Content-Type: multipart/form-data
+
+< ./path/to/staff_list.xlsx
+
+### 8. Upload Staff Photo
+POST http://localhost:5077/api/staff/upload/photo/1
+Content-Type: multipart/form-data
+
+< ./path/to/photo.jpg
