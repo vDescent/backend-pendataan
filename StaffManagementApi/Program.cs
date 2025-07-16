@@ -50,9 +50,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowBlazorClient",
     policy =>
     {
-        // 5279 Blazor
-        // 5173 React
-        policy.WithOrigins("http://localhost:5279") // ganti port fe
+        policy.WithOrigins("http://localhost:5279") // ganti port
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
