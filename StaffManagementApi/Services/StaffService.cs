@@ -78,7 +78,7 @@ namespace StaffManagementApi.Services
             {
                 throw new InvalidOperationException("Staff with this NIM or BinusianId already exists.");
             }
-
+    
             var staff = new Staff
             {
                 FullName = staffDto.FullName,
@@ -189,6 +189,24 @@ namespace StaffManagementApi.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<StaffSummaryDto>> SearchStaffByNIMAsync(string nim)
+        {
+            return await _context.Staffs
+                .Where(s => s.NIM.Contains(nim))
+                .Select(s => new StaffSummaryDto
+                {
+                    Id = s.Id,
+                    FullName = s.FullName,
+                    NIM = s.NIM,
+                    BinusianId = s.BinusianId,
+                    Email = s.Email,
+                    PhoneNumber = s.PhoneNumber,
+                    IsActive = s.IsActive
+                })
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<StaffDashboardDto>> GetLast10StaffAsync()
         {
             return await _context.Staffs

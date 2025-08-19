@@ -6,5 +6,6 @@ namespace StaffManagementApi.Entities
         public required string Name { get; set; }
         public required string Email { get; set; }
         public string PasswordHash { get; set; }
+        public DateTime LastActivity { get; set; }
     }
 }

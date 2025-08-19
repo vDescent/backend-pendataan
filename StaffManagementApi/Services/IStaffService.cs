@@ -14,6 +14,7 @@ namespace StaffManagementApi.Services
         Task<bool> TerminateStaffAsync(int id);
         Task<bool> UnTerminateStaffAsync(int id);
         Task<IEnumerable<StaffSummaryDto>> SearchStaffAsync(string keyword);
+        Task<IEnumerable<StaffSummaryDto>> SearchStaffByNIMAsync(string nim);
         Task<IEnumerable<StaffDashboardDto>> GetLast10StaffAsync();
     }
 }

@@ -50,9 +50,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowBlazorClient",
     policy =>
     {
-        policy.WithOrigins("http://localhost:5279") // ganti port
+        policy.WithOrigins("http://localhost:5173", "https://frontend-pendataan-react.vercel.app") // ganti port
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
@@ -69,6 +70,7 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<ActivityMiddleware>();
 app.UseEndpoints(endpoints =>
 {
     _ = endpoints.MapControllers();

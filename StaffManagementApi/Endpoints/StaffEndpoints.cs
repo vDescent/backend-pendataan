@@ -41,6 +41,14 @@ public class StaffEndpoints : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("search-nim")]
+    public async Task<IActionResult> SearchStaffByNIM([FromQuery] string nim)
+    {
+        var result = await _staffService.SearchStaffByNIMAsync(nim);
+        return Ok(result);
+    }
+
+
     // GET 1 ID 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetStaffById(int id)
@@ -53,9 +61,20 @@ public class StaffEndpoints : ControllerBase
     [HttpPost("add")]
     public async Task<IActionResult> AddStaff([FromBody] CreateStaffDto staffDto)
     {
-        var result = await _staffService.CreateStaffAsync(staffDto);
-        return CreatedAtAction(nameof(GetStaffById), new { id = result.Id }, result);
-    }
+        try
+        {
+            var result = await _staffService.CreateStaffAsync(staffDto);
+            return CreatedAtAction(nameof(GetStaffById), new { id = result.Id }, result);
+        }
+        catch (InvalidOperationException ex) 
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex) // error lain
+        {
+            return StatusCode(500, new { message = "Terjadi kesalahan di server.", detail = ex.Message });
+        }
+    }   
 
     // Update
     [HttpPut("edit/{id}")]

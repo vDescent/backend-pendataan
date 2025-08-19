@@ -389,3 +389,4 @@ E:\Kuliah\Semester6\Magang\BEStaffManagementSystem-20250515T010712Z-1-001\StaffM
 E:\Kuliah\Semester6\Magang\BEStaffManagementSystem-20250515T010712Z-1-001\StaffManagementSystem\StaffManagementApi\bin\Debug\net9.0\SixLabors.Fonts.dll
 E:\Kuliah\Semester6\Magang\BEStaffManagementSystem-20250515T010712Z-1-001\StaffManagementSystem\StaffManagementApi\bin\Debug\net9.0\System.IO.Packaging.dll
 E:\Kuliah\Semester6\Magang\BEStaffManagementSystem-20250515T010712Z-1-001\StaffManagementSystem\StaffManagementApi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\Kuliah\Semester6\Magang\BEStaffManagementSystem-20250515T010712Z-1-001\StaffManagementSystem\StaffManagementApi\obj\Debug\net9.0\StaffManagementApi.sourcelink.json
