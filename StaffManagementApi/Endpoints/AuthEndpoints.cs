@@ -28,8 +28,9 @@ public class AuthEndpoints : ControllerBase
     public IActionResult Register(RegisterDto dto)
     {
         // 1. Validasi Nama (username)
-        if (string.IsNullOrWhiteSpace(dto.Nama) || dto.Nama.Length < 8 || !dto.Nama.All(char.IsLetter))
-            return BadRequest("Nama minimal 8 huruf dan tidak boleh mengandung angka.");
+        if (string.IsNullOrWhiteSpace(dto.Nama) || dto.Nama.Length < 8 || 
+            !dto.Nama.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)))
+            return BadRequest("Nama minimal 8 huruf, hanya boleh huruf dan spasi.");
 
         // 2. Validasi Email
         if (string.IsNullOrWhiteSpace(dto.Email) ||

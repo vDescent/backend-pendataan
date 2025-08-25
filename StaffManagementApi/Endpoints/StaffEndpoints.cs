@@ -32,7 +32,6 @@ public class StaffEndpoints : ControllerBase
         return Ok(result);
     }
 
-
     // Search 1 data orang
     [HttpGet("search")]
     public async Task<IActionResult> SearchStaff([FromQuery] string keyword)
@@ -47,7 +46,6 @@ public class StaffEndpoints : ControllerBase
         var result = await _staffService.SearchStaffByNIMAsync(nim);
         return Ok(result);
     }
-
 
     // GET 1 ID 
     [HttpGet("{id}")]

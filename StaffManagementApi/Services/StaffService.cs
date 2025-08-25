@@ -13,12 +13,29 @@ namespace StaffManagementApi.Services
         {
             _context = context;
         }
-        // UPDATE di haryo DetailsAsync + bukan summary tp bener2 semua staff dikasih detailsnya. 
         // Comment Gaperlu si haruse sg perlu cmn details e tok wae, cmn tambahi Start sama EndDate
         // Comment, cmn kalo pengen tampilin 1 data staff komplit emg perlu
 
+        private async Task AutoTerminateExpiredStaffAsync()
+        {
+            var today = DateOnly.FromDateTime(DateTime.Now);
+            var expiredStaff = await _context.Staffs
+                .Where(s => s.EndDate < today && s.IsActive)
+                .ToListAsync();
+
+            foreach (var staff in expiredStaff)
+            {
+                staff.IsActive = false;
+            }
+
+            if (expiredStaff.Any())
+                await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<StaffSummaryDto>> GetAllStaffSummaryAsync()
         {
+            await AutoTerminateExpiredStaffAsync();
+
             return await _context.Staffs
                 .Select(s => new StaffSummaryDto
                 {
@@ -37,6 +54,8 @@ namespace StaffManagementApi.Services
 
         public async Task<StaffDetailsDto> GetStaffByIdAsync(int id)
         {
+            await AutoTerminateExpiredStaffAsync();
+
             var staff = await _context.Staffs.FindAsync(id);
             if (staff == null) return null!;
 
@@ -72,6 +91,7 @@ namespace StaffManagementApi.Services
 
         public async Task<StaffDetailsDto> CreateStaffAsync(CreateStaffDto staffDto)
         {
+            await AutoTerminateExpiredStaffAsync();
             var existingStaff = await _context.Staffs
                 .FirstOrDefaultAsync(s => s.NIM == staffDto.NIM || s.BinusianId == staffDto.BinusianId);
             if (existingStaff != null)
@@ -114,6 +134,8 @@ namespace StaffManagementApi.Services
 
         public async Task<bool> UpdateStaffAsync(int id, UpdateStaffDto staffDto)
         {
+            await AutoTerminateExpiredStaffAsync();
+
             var staff = await _context.Staffs.FindAsync(id);
             if (staff == null) return false;
 
@@ -146,6 +168,10 @@ namespace StaffManagementApi.Services
 
         public async Task<bool> DeleteStaffAsync(int id)
         {
+            await AutoTerminateExpiredStaffAsync();
+
+            await AutoTerminateExpiredStaffAsync();
+
             var staff = await _context.Staffs.FindAsync(id);
             if (staff == null) return false;
 
@@ -156,6 +182,8 @@ namespace StaffManagementApi.Services
 
         public async Task<bool> TerminateStaffAsync(int id)
         {
+            await AutoTerminateExpiredStaffAsync();
+
             var staff = await _context.Staffs.FindAsync(id);
             if (staff == null) return false;
 
@@ -175,6 +203,8 @@ namespace StaffManagementApi.Services
 
         public async Task<IEnumerable<StaffSummaryDto>> SearchStaffAsync(string keyword)
         {
+            await AutoTerminateExpiredStaffAsync();
+
             return await _context.Staffs
                 .Where(s => s.FullName.Contains(keyword) || s.Email.Contains(keyword))
                 .Select(s => new StaffSummaryDto
@@ -192,6 +222,8 @@ namespace StaffManagementApi.Services
 
         public async Task<IEnumerable<StaffSummaryDto>> SearchStaffByNIMAsync(string nim)
         {
+            await AutoTerminateExpiredStaffAsync();
+
             return await _context.Staffs
                 .Where(s => s.NIM.Contains(nim))
                 .Select(s => new StaffSummaryDto
@@ -209,6 +241,8 @@ namespace StaffManagementApi.Services
 
         public async Task<IEnumerable<StaffDashboardDto>> GetLast10StaffAsync()
         {
+            await AutoTerminateExpiredStaffAsync();
+
             return await _context.Staffs
                 .OrderByDescending(s => s.Id)
                 .Take(10)
