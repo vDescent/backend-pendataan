@@ -50,7 +50,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowBlazorClient",
     policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "https://frontend-pendataan-react.vercel.app", "http://localhost:5276") // ganti port
+        policy.WithOrigins("http://localhost:5173", "http://localhost:5276") // ganti port
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
